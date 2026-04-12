@@ -10,42 +10,34 @@ import { projects, years, allToolLogos } from '@/data/index';
 export default function Work() {
   const [activeYear, setActiveYear] = useState<number>(2026);
   const [currentTools, setCurrentTools] = useState<string[]>(['sketch', 'protopie', 'adobe', 'figma', 'psd', 'chatgpt']);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const projectRefs = useRef<{ [key: string]: HTMLElement | null }>({});
 
   useEffect(() => {
-    const scrollContainer = scrollContainerRef.current;
-    if (!scrollContainer) return;
-
     const handleScroll = () => {
-      const containerRect = scrollContainer.getBoundingClientRect();
       let currentProject: Project | null = null;
 
       for (const project of projects) {
         const element = projectRefs.current[project.id];
         if (element) {
           const rect = element.getBoundingClientRect();
-          // Check if project is in the top half of the viewport
-          if (rect.top >= containerRect.top && rect.top <= containerRect.top + containerRect.height / 2) {
+          if (rect.top <= 200 && rect.bottom >= 200) {
             currentProject = project;
             break;
           }
         }
       }
 
-      // Update active year and tools based on current project
       if (currentProject) {
         setActiveYear(currentProject.year);
         setCurrentTools(currentProject.tools);
       }
     };
 
-    scrollContainer.addEventListener('scroll', handleScroll);
-    return () => scrollContainer.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const scrollToYear = (year: number) => {
-    // If selecting 2022-21, find the oldest project mapping to that group, else exact year
     const firstProjectOfYear = projects.find(p => year === 2022 ? p.year <= 2022 : p.year === year);
     if (firstProjectOfYear && projectRefs.current[firstProjectOfYear.id]) {
       projectRefs.current[firstProjectOfYear.id]?.scrollIntoView({
@@ -60,14 +52,14 @@ export default function Work() {
 
   return (
     <section className="w-full bg-white py-8 md:py-24 flex justify-center" id="work">
-      <div className="w-full max-w-96 md:max-w-7xl h-[687px] md:h-[847px] bg-white md:bg-bg-gray-2 rounded-2xl overflow-hidden">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-0 h-full">
+      <div className="w-full max-w-96 md:max-w-7xl bg-white md:bg-bg-gray-2 rounded-2xl relative">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-0">
           
-          {/* Left Sidebar - Year Navigation - Hidden on mobile */}
-          <div className="hidden md:block md:col-span-2 bg-bg-gray pl-4 pt-4 overflow-y-auto">
+          {/* Left Sidebar - Year Navigation - Sticky within section */}
+          <div className="hidden md:block md:col-span-2 bg-bg-gray-2 pl-4 pt-4 sticky top-4 mb-16 h-fit z-10">
             
             {/* Stacked/Overlapping Logos */}
-            <div className="mb-12 relative h-24 w-48">
+            <div className="mb-8 relative h-24 w-48">
               {toolsToDisplay.map((tool, index) => {
                 const positions = [
                   { top: '0', left: '0', zIndex: 60 },
@@ -132,11 +124,7 @@ export default function Work() {
           </div>
 
           {/* Right Content - Scrollable Projects */}
-          <div
-            ref={scrollContainerRef}
-            className="col-span-1 md:col-span-10 bg-white md:bg-bg-gray overflow-y-auto p-4 md:p-10 work-scroll-hidden"
-            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-          >
+          <div className="col-span-1 md:col-span-10 bg-white md:bg-bg-gray p-4 md:p-10">
             <div className="space-y-12 md:space-y-16">
               {projects.map((project) => {
                 const projectYearData = years.find(y => y.year === (project.year <= 2022 ? 2022 : project.year));
@@ -225,7 +213,7 @@ export default function Work() {
                         )}
                       </div>
                     </div>
-                    <div className='border-1 glow-effect border-border-2 rounded-md md:rounded-2xl p-1'>
+                    <div className='border-1 border-border-2 rounded-md md:rounded-2xl p-1'>
                     <div className="bg-white mb-4 ">
                       {/* Project Image Container */}
                       <div className="relative w-full aspect-[16/10] rounded-md md:rounded-xl overflow-hidden">
