@@ -29,8 +29,8 @@ export default function Hero() {
   return (
     <section className="relative w-full flex flex-col items-center px-4 md:px-8 lg:px-12">
       {/* Profile Image with RG */}
-      <div className="mb-11 md:mb-4 relative flex items-center justify-center">
-        <div className="relative">
+      <div className="mb-11 md:mb-4 relative flex items-center justify-center right-4">
+        <div className="relative ">
           <Image
             src="/icons/profile.svg"
             alt="Profile"
