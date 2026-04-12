@@ -152,7 +152,7 @@ export const projects: Project[] = [
   {
     id: '8',
     title: 'Designed How Tech Services Are Understood Online',
-    websiteLink: '',
+    websiteLink: 'https://www.assentcode.tech/',
     description: 'Led the redesign of a B2B tech website, improving information architecture, content clarity, and conversion pathways.',
     year: 2024,
     tags: ['Web Design', 'Conversion Design'],
@@ -183,7 +183,7 @@ export const projects: Project[] = [
   {
     id: '11',
     title: 'Lazer Crazer: My First Step into Web Design',
-    websiteLink: '',
+    websiteLink: 'https://lazercrazer.in/noida',
     description: 'Thanks to the person who thought I could design this high-energy gaming arena website ',
     year: 2023,
     tags: ['Web Design', 'Experience Design'],

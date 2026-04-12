@@ -203,12 +203,14 @@ export default function Work() {
                             {project.description}
                           </p>
                         </div>
-                        {project.caseStudySlug && (
+                        { (project.websiteLink || project.caseStudySlug) && (
                           <Link
-                            href={`/case-study/${project.caseStudySlug}`}
+                            href={project.websiteLink ? project.websiteLink : `/case-study/${project.caseStudySlug}`}
+                            target={project.websiteLink ? "_blank" : "_self"}
+                            rel={project.websiteLink ? "noopener noreferrer" : ""}
                             className="hidden md:block px-5 py-2.5 bg-box-1 text-white rounded-lg text-sm font-medium hover:bg-primary-1-hover transition-all duration-300 font-family-karla whitespace-nowrap"
                           >
-                            View Case study
+                            {project.websiteLink ? "View Website" : "View Case Study"}
                           </Link>
                         )}
                       </div>
@@ -245,13 +247,16 @@ export default function Work() {
                     </div>
 
                     {/* Button - Mobile only */}
-                    {project.caseStudySlug && (
+                    { (project.websiteLink || project.caseStudySlug) && (
                       <div className="md:hidden mt-4">
                         <Link
-                          href={`/case-study/${project.caseStudySlug}`}
+                          href={project.websiteLink ? project.websiteLink : `/case-study/${project.caseStudySlug}`}
+                          // Open in new tab only if it's an external website link
+                          target={project.websiteLink ? "_blank" : "_self"}
+                          rel={project.websiteLink ? "noopener noreferrer" : ""}
                           className="block px-5 py-2.5 bg-box-1 text-white rounded-lg text-sm font-medium hover:bg-primary-1-hover transition-all duration-300 font-family-karla text-center"
                         >
-                          View Case study
+                          {project.websiteLink ? 'View Website' : 'View Case Study'}
                         </Link>
                       </div>
                     )}
