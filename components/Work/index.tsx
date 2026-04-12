@@ -6,10 +6,9 @@ import { useState, useEffect, useRef } from 'react';
 import { Project } from '@/types/index';
 import { projects, years, allToolLogos } from '@/data/index';
 
-const CURRENT_YEAR = parseInt(process.env.NEXT_PUBLIC_THIS_YEAR || '2026', 10);
 
 export default function Work() {
-  const [activeYear, setActiveYear] = useState<number>(CURRENT_YEAR);
+  const [activeYear, setActiveYear] = useState<number>(2026);
   const [currentTools, setCurrentTools] = useState<string[]>(['sketch', 'protopie', 'adobe', 'figma', 'psd', 'chatgpt']);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const projectRefs = useRef<{ [key: string]: HTMLElement | null }>({});
