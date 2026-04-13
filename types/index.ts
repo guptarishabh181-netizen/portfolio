@@ -3,6 +3,30 @@ export interface TeamMember {
   color: string;
 }
 
+export interface ImpactMetric {
+  percentage: string;
+  title: string;
+  description: string;
+}
+
+export interface Learning {
+  title: string;
+  description: string;
+  isDark?: boolean;
+}
+
+export interface ProcessSection {
+  category: string;
+  title: string;
+  paragraphs: string[];
+  image?: string;
+  fontSections?: Array<{
+    label: string;
+    image: string;
+  }>;
+  designSystemImages?: string[];
+}
+
 export interface CaseStudy {
   slug: string;
   category: string;
@@ -29,6 +53,16 @@ export interface CaseStudy {
     description: string;
     solution: string;
   };
+  tldsSection?: {
+    content: string;
+    image?: string;
+  };
+  impactMetrics?: ImpactMetric[];
+  approachSection?: {
+    images: string[];
+  };
+  processSections?: ProcessSection[];
+  learnings?: Learning[];
 }
 
 

@@ -7,10 +7,10 @@ interface InfoGridProps {
 export default function InfoGrid({ caseStudy }: InfoGridProps) {
   return (
     <div className="flex justify-center mb-12">
-      <div className="w-full max-w-7xl bg-bg-gray rounded-2xl p-8">
-        <div className="flex items-start justify-between">
+      <div className="w-full max-w-7xl bg-bg-gray rounded-2xl p-6 md:p-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {/* Overview */}
-          <div className="flex-1 max-w-[280px]">
+          <div>
             <h3 className="text-lg font-bold text-primary-1 mb-3 font-family-inter">
               Overview
             </h3>
@@ -20,7 +20,7 @@ export default function InfoGrid({ caseStudy }: InfoGridProps) {
           </div>
 
           {/* My role */}
-          <div className="flex-1 max-w-[180px]">
+          <div>
             <h3 className="text-lg font-bold text-primary-1 mb-3 font-family-inter">
               My role
             </h3>
@@ -30,7 +30,7 @@ export default function InfoGrid({ caseStudy }: InfoGridProps) {
           </div>
 
           {/* Team - Stacked/Overlapping */}
-          <div className="flex-1 max-w-[160px]">
+          <div>
             <h3 className="text-lg font-bold text-primary-1 mb-3 font-family-inter">
               Team
             </h3>
@@ -52,7 +52,7 @@ export default function InfoGrid({ caseStudy }: InfoGridProps) {
           </div>
 
           {/* Timeline - At the end */}
-          <div className="flex-1 max-w-[90px]">
+          <div>
             <h3 className="text-lg font-bold text-primary-1 mb-3 font-family-inter">
               Timeline
             </h3>

@@ -4,6 +4,8 @@ import CaseStudyHeader from '@/components/CaseStudy/CaseStudyHeader';
 import { CaseStudyHeroContent, CaseStudyHeroImage } from '@/components/CaseStudy/CaseStudyHero';
 import InfoGrid from '@/components/CaseStudy/InfoGrid';
 import ContentSections from '@/components/CaseStudy/ContentSections';
+import AdditionalSections from '@/components/CaseStudy/AdditionalSections';
+import MoreCaseStudies from '@/components/CaseStudy/MoreCaseStudies';
 import Footer from '@/components/Footer';
 
 export default async function CaseStudyPage({
@@ -18,6 +20,12 @@ export default async function CaseStudyPage({
     return <div>Case study not found</div>;
   }
 
+  // Get next and previous case study slugs
+  const slugs = Object.keys(caseStudies);
+  const currentIndex = slugs.indexOf(slug);
+  const nextSlug = currentIndex < slugs.length - 1 ? slugs[currentIndex + 1] : undefined;
+  const prevSlug = currentIndex > 0 ? slugs[currentIndex - 1] : undefined;
+
   return (
     <main className="min-h-screen bg-white">
       <GridBackground />
@@ -30,6 +38,8 @@ export default async function CaseStudyPage({
           <InfoGrid caseStudy={caseStudy} />
           <CaseStudyHeroImage caseStudy={caseStudy} />
           <ContentSections caseStudy={caseStudy} />
+          <AdditionalSections caseStudy={caseStudy} nextSlug={nextSlug} prevSlug={prevSlug} />
+          <MoreCaseStudies currentSlug={slug} />
         </div>
       </div>
       <Footer />

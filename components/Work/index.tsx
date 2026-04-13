@@ -203,33 +203,37 @@ export default function Work() {
                             {project.description}
                           </p>
                         </div>
-                        { (project.websiteLink || project.caseStudySlug) && (
-                          <Link
-                            href={project.websiteLink ? project.websiteLink : `/case-study/${project.caseStudySlug}`}
-                            target={project.websiteLink ? "_blank" : "_self"}
-                            rel={project.websiteLink ? "noopener noreferrer" : ""}
-                            className="hidden md:block px-5 py-2.5 bg-box-1 text-white rounded-lg text-sm font-medium hover:bg-primary-1-hover transition-all duration-300 font-family-karla whitespace-nowrap"
-                          >
-                            {project.websiteLink ? "View Website" : "View Case Study"}
-                          </Link>
-                        )}
+                        <Link
+                          href={
+                            project.websiteLink
+                              ? project.websiteLink
+                              : (project.caseStudySlug && project.caseStudySlug.trim() !== '')
+                                ? `/case-study/${project.caseStudySlug}`
+                                : '/case-study/coming-soon'
+                          }
+                          target={project.websiteLink ? "_blank" : "_self"}
+                          rel={project.websiteLink ? "noopener noreferrer" : ""}
+                          className="hidden md:block px-5 py-2.5 bg-box-1 text-white rounded-lg text-sm font-medium hover:bg-primary-1-hover transition-all duration-300 font-family-karla whitespace-nowrap"
+                        >
+                          {project.websiteLink ? "View Website" : "View Case Study"}
+                        </Link>
                       </div>
                     </div>
                     <div className='border-1 border-border-2 rounded-md md:rounded-2xl p-1'>
                     <div className="bg-white mb-4 ">
                       {/* Project Image Container */}
-                      <div className="relative w-full aspect-[16/10] rounded-md md:rounded-xl overflow-hidden">
-                        
+                      <div className="relative w-full rounded-md md:rounded-xl overflow-hidden">
+
                         {/* Actual Image */}
                         {project.image && (
                           <Image
                             src={project.image}
                             alt={project.title}
-                            fill
-                            className="object-cover"
+                            width={1600}
+                            height={1000}
+                            className="w-full h-auto"
                           />
                         )}
-                        
                       </div>
                     </div>
 
@@ -247,19 +251,23 @@ export default function Work() {
                     </div>
 
                     {/* Button - Mobile only */}
-                    { (project.websiteLink || project.caseStudySlug) && (
-                      <div className="md:hidden mt-4">
-                        <Link
-                          href={project.websiteLink ? project.websiteLink : `/case-study/${project.caseStudySlug}`}
-                          // Open in new tab only if it's an external website link
-                          target={project.websiteLink ? "_blank" : "_self"}
-                          rel={project.websiteLink ? "noopener noreferrer" : ""}
-                          className="block px-5 py-2.5 bg-box-1 text-white rounded-lg text-sm font-medium hover:bg-primary-1-hover transition-all duration-300 font-family-karla text-center"
-                        >
-                          {project.websiteLink ? 'View Website' : 'View Case Study'}
-                        </Link>
-                      </div>
-                    )}
+                    <div className="md:hidden mt-4">
+                      <Link
+                        href={
+                          project.websiteLink
+                            ? project.websiteLink
+                            : (project.caseStudySlug && project.caseStudySlug.trim() !== '')
+                              ? `/case-study/${project.caseStudySlug}`
+                              : '/case-study/coming-soon'
+                        }
+                        // Open in new tab only if it's an external website link
+                        target={project.websiteLink ? "_blank" : "_self"}
+                        rel={project.websiteLink ? "noopener noreferrer" : ""}
+                        className="block px-5 py-2.5 bg-box-1 text-white rounded-lg text-sm font-medium hover:bg-primary-1-hover transition-all duration-300 font-family-karla text-center"
+                      >
+                        {project.websiteLink ? 'View Website' : 'View Case Study'}
+                      </Link>
+                    </div>
                   </article>
                 );
               })}
