@@ -242,16 +242,6 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Hide scrollbar for work section */
-.work-scroll-hidden::-webkit-scrollbar {
-  display: none;
-}
-
-.work-scroll-hidden {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
 @layer utilities {
   .grid-bg {
     background-image: 
