@@ -41,8 +41,8 @@ export default async function CaseStudyPage({
           <AdditionalSections caseStudy={caseStudy} nextSlug={nextSlug} prevSlug={prevSlug} />
           <MoreCaseStudies currentSlug={slug} />
         </div>
+        <Footer />
       </div>
-      <Footer />
     </main>
   );
 }
