@@ -24,6 +24,9 @@ export default function Header() {
       <div className="flex items-center gap-3 md:gap-4">
         {/* Resume Button */}
         <button
+          onClick={() =>
+            window.open("https://drive.google.com/file/d/13EpNfKrX2lnyzzydpJJHnp61WJ2guVid/view?usp=sharing", "_blank")
+          }
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
           className="px-3.5 md:px-3.5 py-1.5 md:py-1.5 bg-box-1 text-white rounded-md font-medium text-xs md:text-sm hover:bg-primary-1-hover transition-all duration-300 ease-in-out cursor-pointer font-family-karla"
