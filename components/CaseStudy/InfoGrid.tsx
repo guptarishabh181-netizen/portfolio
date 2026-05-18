@@ -6,12 +6,12 @@ interface InfoGridProps {
 
 export default function InfoGrid({ caseStudy }: InfoGridProps) {
   return (
-    <div className="flex justify-center mb-12">
-      <div className="w-full max-w-7xl bg-bg-gray rounded-2xl p-6 md:p-8">
+    <div className="flex justify-center mb-10 md:mb-12">
+      <div className="w-full max-w-7xl bg-bg-gray rounded-xl md:rounded-2xl p-5 md:p-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {/* Overview */}
           <div>
-            <h3 className="text-lg font-bold text-primary-1 mb-3 font-family-inter">
+            <h3 className="text-base md:text-lg font-bold text-primary-1 mb-3 font-family-inter">
               Overview
             </h3>
             <p className="text-sm text-primary-1 font-medium leading-relaxed font-family-karla">
@@ -21,7 +21,7 @@ export default function InfoGrid({ caseStudy }: InfoGridProps) {
 
           {/* My role */}
           <div>
-            <h3 className="text-lg font-bold text-primary-1 mb-3 font-family-inter">
+            <h3 className="text-base md:text-lg font-bold text-primary-1 mb-3 font-family-inter">
               My role
             </h3>
             <p className="text-sm text-primary-1 font-medium leading-relaxed font-family-karla">
@@ -31,10 +31,10 @@ export default function InfoGrid({ caseStudy }: InfoGridProps) {
 
           {/* Team - Stacked/Overlapping */}
           <div>
-            <h3 className="text-lg font-bold text-primary-1 mb-3 font-family-inter">
+            <h3 className="text-base md:text-lg font-bold text-primary-1 mb-3 font-family-inter">
               Team
             </h3>
-            <div className="relative h-10 w-32">
+            <div className="relative h-10 w-44">
               {caseStudy.team.map((member, index) => (
                 <div
                   key={index}
@@ -42,7 +42,7 @@ export default function InfoGrid({ caseStudy }: InfoGridProps) {
                   style={{
                     backgroundColor: member.color,
                     left: `${index * 1.5}rem`,
-                    zIndex: 40 - index * 10
+                    zIndex: caseStudy.team.length - index
                   }}
                 >
                   {member.name}
@@ -53,7 +53,7 @@ export default function InfoGrid({ caseStudy }: InfoGridProps) {
 
           {/* Timeline - At the end */}
           <div>
-            <h3 className="text-lg font-bold text-primary-1 mb-3 font-family-inter">
+            <h3 className="text-base md:text-lg font-bold text-primary-1 mb-3 font-family-inter">
               Timeline
             </h3>
             <p className="text-sm text-primary-1 font-medium font-family-karla">

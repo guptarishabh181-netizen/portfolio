@@ -22,7 +22,7 @@ export default function ComingSoonPage() {
 
           {/* Description */}
           <p className="text-base md:text-2xl text-primary-1 font-regular leading-relaxed font-family-karla mb-12 max-w-xl mx-auto">
-            I'm currently working on documenting this project. Check back soon to see the full case study with insights, process, and outcomes.
+            I&apos;m currently working on documenting this project. Check back soon to see the full case study with insights, process, and outcomes.
           </p>
 
           {/* Back to Work Button */}
