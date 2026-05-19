@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 
 interface TLDSSectionProps {
@@ -10,6 +11,8 @@ interface TLDSSectionProps {
 }
 
 export default function TLDSSection({ tldsSection, nextSlug, prevSlug }: TLDSSectionProps) {
+  const isVectorArtwork = tldsSection.image?.endsWith('.svg');
+
   return (
     <div className="mb-12 md:mb-16">
       {/* Header outside container */}
@@ -27,12 +30,14 @@ export default function TLDSSection({ tldsSection, nextSlug, prevSlug }: TLDSSec
 
       {/* Gray container with image */}
       <div className="bg-bg-gray rounded-2xl p-6 md:p-12 mb-6 md:mb-8">
-        <div className="relative w-full aspect-[16/9] bg-bg-gray-2 rounded-xl overflow-hidden flex items-center justify-center">
+        <div className={`relative w-full aspect-[16/9] rounded-xl overflow-hidden flex items-center justify-center ${isVectorArtwork ? 'bg-[#f6f7ff]' : 'bg-bg-gray-2'}`}>
           {tldsSection.image ? (
-            <img
+            <Image
               src={tldsSection.image}
               alt="TLDS"
-              className="w-full h-full object-cover"
+              fill
+              className={isVectorArtwork ? 'object-contain' : 'object-cover'}
+              sizes="(max-width: 768px) 100vw, 960px"
             />
           ) : (
             <div className="text-primary-2">

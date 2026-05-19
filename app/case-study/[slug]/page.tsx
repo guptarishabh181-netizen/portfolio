@@ -7,6 +7,7 @@ import ContentSections from '@/components/CaseStudy/ContentSections';
 import AdditionalSections from '@/components/CaseStudy/AdditionalSections';
 import MoreCaseStudies from '@/components/CaseStudy/MoreCaseStudies';
 import Footer from '@/components/Footer';
+import CommentSummarizerCaseStudy from '@/components/CaseStudy/CommentSummarizerCaseStudy';
 
 export default async function CaseStudyPage({
   params
@@ -18,6 +19,10 @@ export default async function CaseStudyPage({
 
   if (!caseStudy) {
     return <div>Case study not found</div>;
+  }
+
+  if (slug === 'comment-summarizer') {
+    return <CommentSummarizerCaseStudy />;
   }
 
   // Get next and previous case study slugs

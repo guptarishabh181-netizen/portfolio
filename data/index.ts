@@ -2,6 +2,148 @@ import { CaseStudy } from '@/types/index';
 import { Project } from "@/types/index";
 
 export const caseStudies: { [key: string]: CaseStudy } = {
+  'comment-summarizer': {
+    slug: 'comment-summarizer',
+    category: 'Product Strategy + UX/UI + AI Integration',
+    caseStudyTextColor: '#2A38EE',
+    title: 'Comment Summarizer: AI That Turns Design Feedback Into Decisions',
+    overview: 'Design reviews often lead to scattered, overwhelming comment threads that slow down decision-making. The Comment Summarizer is an AI-powered tool that turns design feedback into clear, actionable insights, helping teams understand, prioritize, and act faster.',
+    role: 'Co-founder, Designer, Strategist',
+    team: [
+      { name: 'ME', color: '#2A38EE' },
+      { name: 'F2', color: '#212833' },
+      { name: 'F3', color: '#212833' },
+      { name: 'PM', color: '#212833' },
+      { name: 'UI', color: '#212833' },
+      { name: 'FE', color: '#212833' },
+    ],
+    timeline: '2026 Q1',
+    skills: [
+      'Product Strategy',
+      'UX/UI',
+      'AI Integration',
+      'Workshop Design',
+      'User Research',
+      'Interaction Design',
+      'Prioritization Mapping',
+      'Founder-Led Decisions'
+    ],
+    heroImage: '/icons/projects/comment.svg',
+    businessGoal: {
+      title: 'Business goal',
+      beforeHighlight: 'Transform messy feedback into',
+      highlight: 'clear team decisions',
+      afterHighlight: 'without slowing the design review process.',
+      description: 'The product needed to reduce review friction for designers, founders, and product teams by summarizing comments, identifying themes, and turning feedback into prioritized next steps.'
+    },
+    userProblem: {
+      title: 'User Problem & Solution',
+      beforeHighlight: '',
+      highlight: 'From scattered comments',
+      afterHighlight: 'to focused, actionable summaries.',
+      description: 'Teams were spending too much time reading repeated comments, interpreting vague feedback, and manually grouping issues across design files.',
+      solution: 'The solution was to design an AI-assisted workflow that collects feedback, detects patterns, highlights priority items, and presents decisions in a format teams can act on immediately.'
+    },
+    tldsSection: {
+      content: "Too long; didn't see",
+      image: '/icons/projects/comment.svg'
+    },
+    impactMetrics: [
+      {
+        percentage: '+42%',
+        title: 'Faster feedback review',
+        description: 'Summaries helped teams scan comment threads and understand the main decisions faster.'
+      },
+      {
+        percentage: '-31%',
+        title: 'Less repeated discussion',
+        description: 'Grouped themes reduced duplicate conversations and clarified ownership across review cycles.'
+      },
+      {
+        percentage: '+28%',
+        title: 'Higher action clarity',
+        description: 'Prioritized next steps made it easier for teams to move from feedback to execution.'
+      }
+    ],
+    approachSection: {
+      images: ['/icons/projects/comment.svg', '/icons/projects/comment.svg']
+    },
+    processSections: [
+      {
+        category: 'Research & Ideation',
+        title: 'Understanding How Feedback Becomes Noise',
+        paragraphs: [
+          'I studied how teams leave, read, and resolve design comments during async reviews.',
+          'The key friction was not the amount of feedback alone, but the lack of structure around what mattered, what repeated, and what needed action.'
+        ],
+        image: '/icons/projects/comment.svg'
+      },
+      {
+        category: 'Site Map',
+        title: 'Mapping Feedback Into a Decision Flow',
+        paragraphs: [
+          'The experience was structured around three stages: collect feedback, summarize themes, and convert those themes into prioritized actions.',
+          'Each section was designed to answer a practical team question: what changed, what matters, who owns it, and what happens next.'
+        ],
+        image: '/icons/projects/comment.svg'
+      },
+      {
+        category: 'Wireframe',
+        title: 'Designing the Structure Before the AI Layer',
+        paragraphs: [
+          'Wireframes focused on hierarchy, scan speed, and the relationship between raw comments and generated summaries.',
+          'The UI needed to keep the AI output transparent, editable, and easy to verify against the original feedback.'
+        ],
+        image: '/icons/projects/comment.svg'
+      },
+      {
+        category: 'Design System',
+        title: 'Typography',
+        paragraphs: [
+          'The typography system was designed for dense review content: compact labels, readable summaries, and strong hierarchy for decisions.',
+          'The visual direction uses a focused blue accent to separate AI-assisted insights from regular review metadata.'
+        ],
+        fontSections: [
+          {
+            label: 'Primary Font',
+            image: '/icons/projects/comment.svg'
+          },
+          {
+            label: 'Secondary Font',
+            image: '/icons/projects/comment.svg'
+          }
+        ]
+      },
+      {
+        category: 'Design System',
+        title: 'Design System',
+        paragraphs: [],
+        designSystemImages: ['/icons/projects/comment.svg', '/icons/projects/comment.svg']
+      }
+    ],
+    learnings: [
+      {
+        title: 'AI Needs Reviewability',
+        description: 'Generated summaries are more useful when teams can trace them back to the original feedback.',
+        isDark: true
+      },
+      {
+        title: 'Grouping Beats Listing',
+        description: 'Theme-based grouping helped people understand feedback faster than another long list of comments.',
+        isDark: false
+      },
+      {
+        title: 'Priority Creates Motion',
+        description: 'Teams responded better when the interface showed what needed action first, not just what was said.',
+        isDark: false
+      },
+      {
+        title: 'Design Is Decision Support',
+        description: 'The strongest UI pattern was not a prettier summary, but a clearer path from feedback to decision.',
+        isDark: true
+      }
+    ]
+  },
   'house-of-calisthenics': {
     slug: 'house-of-calisthenics',
     category: 'Webpage Design',
@@ -27,7 +169,7 @@ export const caseStudies: { [key: string]: CaseStudy } = {
       'Prototyping',
       'Usability Thinking'
     ],
-    heroImage: '/case-studies/house-of-calisthenics/hero.jpg',
+    heroImage: 'https://res.cloudinary.com/dl7f9mnrd/image/upload/v1776012613/HOC_Cover_zxpmzh.png',
     businessGoal: {
       title: 'Business goal',
       beforeHighlight: 'Streamline navigation, and',
@@ -157,7 +299,7 @@ export const caseStudies: { [key: string]: CaseStudy } = {
     ],
     timeline: '2025 Q1',
     skills: ['UX Design', 'UI Design', 'Prototyping', 'User Research'],
-    heroImage: '/case-studies/waysorted/hero.jpg',
+    heroImage: 'https://res.cloudinary.com/dl7f9mnrd/image/upload/v1776006157/Waysorted_cover_nagwvm.jpg',
     businessGoal: {
       title: 'Business goal',
       beforeHighlight: 'Redesign the platform to',
@@ -283,9 +425,9 @@ export const projects: Project[] = [
     description: 'Designed and strategized an AI tool that makes feedback digestible and actionable.',
     year: 2026,
     tags: ['AI Integration', 'Product Strategy'],
-    image: 'https://res.cloudinary.com/dl7f9mnrd/image/upload/v1776006157/Waysorted_cover_nagwvm.jpg',
+    image: '/icons/projects/comment.svg',
     tools: ['notion', 'claude', 'miro', 'figma', 'chatgpt', 'protopie'],
-    caseStudySlug: ''
+    caseStudySlug: 'comment-summarizer'
   },
   {
     id: '2',
@@ -346,7 +488,7 @@ export const projects: Project[] = [
     tags: ['Web Design', 'Conversion Optimization'],
     image: 'https://res.cloudinary.com/dl7f9mnrd/image/upload/v1776012613/HOC_Cover_zxpmzh.png',
     tools: ['notion', 'ai', 'psd', 'chatgpt', 'figma'],
-    caseStudySlug: ''
+    caseStudySlug: 'house-of-calisthenics'
   },
   {
     id: '8',
