@@ -81,19 +81,6 @@ export default function Footer() {
                 guptarishabh181@gmail.com
               </a>
             </div>
-
-            {/* Phone */}
-            <div>
-              <h3 className="text-[15px] font-bold text-primary-1 mb-1 font-family-inter cursor-default">
-                Phone
-              </h3>
-              <a
-                href="tel:+918318930542"
-                className="text-primary-2 hover:text-primary-1 transition-colors text-[15px] font-family-karla"
-              >
-                +91 83189 30542
-              </a>
-            </div>
           </div>
         </div>
 
