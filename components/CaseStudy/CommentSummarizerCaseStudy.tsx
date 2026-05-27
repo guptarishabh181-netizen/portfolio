@@ -37,33 +37,6 @@ const metrics = [
   },
 ];
 
-const approach = [
-  {
-    title: 'Research & Discovery',
-    body: 'Defined research questions and conducted interviews with PMs and senior designers, supported by surveys, to understand where feedback workflows break.',
-    time: '20 Days',
-  },
-  {
-    title: 'Analysis & Problem Framing',
-    body: 'Synthesized insights using affinity mapping and behavioral analysis to define the problem around overload, ambiguity, and slow decisions.',
-    time: '15 Days',
-  },
-  {
-    title: 'Market & AI Landscape Analysis',
-    body: 'Analyzed leading tools, workflows, and AI capabilities, including Figma AI, to identify gaps between comment generation and decision support.',
-    time: '7 Days',
-  },
-  {
-    title: 'User Modeling & Solution Exploration',
-    body: 'Defined personas and explored structures, AI interactions, and feedback flows through multiple component iterations.',
-    time: '14 Days',
-  },
-  {
-    title: 'Validation & Iteration (Ongoing)',
-    body: 'Currently testing the product with PMs, developers, and designers to validate clarity, usability, and real-world effectiveness.',
-    time: 'Live',
-  },
-];
 
 const problemPills = [
   'High volume of unstructured comments',
@@ -388,24 +361,29 @@ function Tlds() {
         </span>
       </div>
 
-      <div className="rounded-2xl bg-[#F7F7F8] p-4 md:p-5">
-        <div className="grid gap-5 md:grid-cols-5">
-          {approach.map((item) => (
-            <article key={item.title} className="flex flex-col justify-between rounded-lg bg-white p-4 shadow-sm">
-              <div>
-                <div className="mb-3 flex items-start justify-between gap-3">
-                  <h3 className="font-family-inter text-base font-bold leading-tight text-[#202936]">{item.title}</h3>
-                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-[#34485E] text-xs font-bold text-white">
-                    +
-                  </span>
-                </div>
-                <p className="font-family-karla text-xs font-medium leading-relaxed text-[#344054]">{item.body}</p>
-              </div>
-              <span className="mt-4 self-end rounded-full bg-white px-3 py-1 font-family-karla text-xs font-semibold text-[#344054] shadow-sm">
-                {item.time}
-              </span>
-            </article>
-          ))}
+      {/* Desktop: full image */}
+      <div className="hidden overflow-hidden rounded-2xl md:block">
+        <VisualAsset
+          src="/case-studies/comment-summarizer/assets/final/process-img.png"
+          alt="Design process overview"
+          width={1124}
+          height={280}
+        />
+      </div>
+
+      {/* Mobile: horizontal scroll slider */}
+      <div className="overflow-x-auto overflow-y-hidden rounded-2xl bg-[#F7F7F8] p-4 md:hidden" style={{ maxHeight: '50vh' }}>
+        <div className="min-w-max">
+          <Image
+            src="/case-studies/comment-summarizer/assets/final/process-img.png"
+            alt="Design process overview"
+            width={1124}
+            height={280}
+            loading="eager"
+            unoptimized
+            className="h-auto"
+            style={{ maxHeight: 'calc(50vh - 2rem)' }}
+          />
         </div>
       </div>
     </SectionShell>
