@@ -7,6 +7,9 @@ import ContentSections from '@/components/CaseStudy/ContentSections';
 import AdditionalSections from '@/components/CaseStudy/AdditionalSections';
 import MoreCaseStudies from '@/components/CaseStudy/MoreCaseStudies';
 import Footer from '@/components/Footer';
+import VisualCaseStudyPage from '@/components/CaseStudy/VisualCaseStudyPage';
+import CommentSummarizerCaseStudy from '@/components/CaseStudy/CommentSummarizerCaseStudy';
+import { visualCaseStudies } from '@/data/visualCaseStudies';
 
 export default async function CaseStudyPage({
   params
@@ -14,6 +17,17 @@ export default async function CaseStudyPage({
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params;
+
+  if (slug === 'comment-summarizer') {
+    return <CommentSummarizerCaseStudy />;
+  }
+
+  const visualCaseStudy = visualCaseStudies[slug];
+
+  if (visualCaseStudy) {
+    return <VisualCaseStudyPage study={visualCaseStudy} />;
+  }
+
   const caseStudy = await caseStudies[slug];
 
   if (!caseStudy) {
@@ -49,7 +63,8 @@ export default async function CaseStudyPage({
 
 // Generate static params for all case studies
 export async function generateStaticParams() {
-  return Object.keys(caseStudies).map((slug) => ({
+  const customSlugs = ['comment-summarizer'];
+  return [...Object.keys(caseStudies), ...Object.keys(visualCaseStudies), ...customSlugs].map((slug) => ({
     slug,
   }));
 }

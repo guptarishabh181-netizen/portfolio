@@ -1,238 +1,220 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
-import { caseStudies } from '@/data/index';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { projects } from '@/data/index';
+import { Project } from '@/types/index';
 
 interface MoreCaseStudiesProps {
   currentSlug: string;
 }
 
+type CaseStudyCard = Pick<Project, 'id' | 'title' | 'description' | 'tags' | 'image'> & {
+  href: string;
+};
+
+const featuredCaseStudyCards: Record<string, Partial<Pick<CaseStudyCard, 'title' | 'description' | 'tags'>>> = {
+  '1': {
+    title: 'Waysorted Platform',
+    description:
+      'A product workflow case study focused on making design feedback clearer, faster, and easier to act on.',
+    tags: ['Design Strategy', 'UX Research', 'UI'],
+  },
+  '8': {
+    title: 'Assentcode Website',
+    description:
+      'Assentcode Technologies: Revolutionize your business with AI-driven solutions, custom app development, and scalable cloud services.',
+    tags: ['Design Strategy', 'UX Research', 'UI'],
+  },
+};
+
+const caseStudyCardOrder = ['1', '8', '2', '3', '7'];
+
+function getCaseStudyCards(currentSlug: string): CaseStudyCard[] {
+  return projects
+    .filter((project) => project.caseStudySlug !== currentSlug)
+    .map((project) => ({
+      id: project.id,
+      title: featuredCaseStudyCards[project.id]?.title ?? project.title,
+      description: featuredCaseStudyCards[project.id]?.description ?? project.description,
+      tags: featuredCaseStudyCards[project.id]?.tags ?? project.tags,
+      image: project.image,
+      href: project.caseStudySlug ? `/case-study/${project.caseStudySlug}` : '/case-study/coming-soon',
+    }))
+    .filter((project) => Boolean(project.image))
+    .sort((first, second) => {
+      const firstIndex = caseStudyCardOrder.indexOf(first.id);
+      const secondIndex = caseStudyCardOrder.indexOf(second.id);
+
+      if (firstIndex === -1 && secondIndex === -1) {
+        return Number(first.id) - Number(second.id);
+      }
+
+      if (firstIndex === -1) {
+        return 1;
+      }
+
+      if (secondIndex === -1) {
+        return -1;
+      }
+
+      return firstIndex - secondIndex;
+    });
+}
+
+function shuffleCards(cards: CaseStudyCard[]) {
+  const shuffled = [...cards];
+
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    const nextIndex = Math.floor(Math.random() * (index + 1));
+    [shuffled[index], shuffled[nextIndex]] = [shuffled[nextIndex], shuffled[index]];
+  }
+
+  if (shuffled.length > 1 && shuffled[0].id === cards[0].id) {
+    shuffled.push(shuffled.shift() as CaseStudyCard);
+  }
+
+  return shuffled;
+}
+
+function CardImage({ card }: { card: CaseStudyCard }) {
+  return (
+    <div className="relative h-full w-full overflow-hidden rounded-xl bg-bg-gray">
+      <Image
+        src={card.image}
+        alt={card.title}
+        fill
+        sizes="(max-width: 1024px) 100vw, 410px"
+        className="object-cover"
+      />
+    </div>
+  );
+}
+
+function Skills({ tags }: { tags: string[] }) {
+  return (
+    <div className="flex flex-wrap gap-2">
+      {tags.map((tag) => (
+        <span
+          key={tag}
+          className="rounded-full border border-border-2 bg-white px-3 py-1.5 font-family-karla text-xs font-medium text-primary-1"
+        >
+          {tag}
+        </span>
+      ))}
+    </div>
+  );
+}
+
 export default function MoreCaseStudies({ currentSlug }: MoreCaseStudiesProps) {
-  // Get all case studies except the current one
-  const allCaseStudies = Object.values(caseStudies).filter(cs => cs.slug !== currentSlug);
-  const [studyList, setStudyList] = useState(allCaseStudies);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [cards, setCards] = useState(() => getCaseStudyCards(currentSlug));
+  const [isShuffling, setIsShuffling] = useState(false);
+  const [shuffleCount, setShuffleCount] = useState(0);
 
-  // Auto-rotate every 5 seconds
   useEffect(() => {
-    const interval = setInterval(() => {
-      nextSlide();
-    }, 5000);
+    setCards(getCaseStudyCards(currentSlug));
+  }, [currentSlug]);
 
-    return () => clearInterval(interval);
-  }, [currentIndex, studyList]);
+  const visibleCards = cards.slice(0, 3);
+  const frontCard = visibleCards[0];
+  const backCards = visibleCards.slice(1);
 
-  const nextSlide = () => {
-    if (isAnimating) return;
-    setIsAnimating(true);
-    setTimeout(() => {
-      setCurrentIndex((prev) => (prev + 1) % studyList.length);
-      setIsAnimating(false);
-    }, 500);
+  if (!frontCard) {
+    return null;
+  }
+
+  const handleShuffle = () => {
+    if (isShuffling || cards.length < 2) {
+      return;
+    }
+
+    setIsShuffling(true);
+
+    window.setTimeout(() => {
+      setCards((currentCards) => shuffleCards(currentCards));
+      setShuffleCount((count) => count + 1);
+      setIsShuffling(false);
+    }, 260);
   };
-
-  const shuffleCaseStudies = () => {
-    if (isAnimating) return;
-    setIsAnimating(true);
-    setTimeout(() => {
-      const shuffled = [...studyList].sort(() => Math.random() - 0.5);
-      setStudyList(shuffled);
-      setCurrentIndex(0);
-      setIsAnimating(false);
-    }, 500);
-  };
-
-  const currentStudy = studyList[currentIndex];
-  const nextStudy = studyList[(currentIndex + 1) % studyList.length];
 
   return (
-    <div className="mb-16">
-      <h2 className="text-4xl md:text-5xl font-semibold text-primary-1 text-center mb-12 font-family-inter">
+    <section className="mb-16">
+      <div className="mx-auto mb-10 flex w-fit rounded-full border border-border-2 bg-white px-7 py-3">
+        <span className="font-family-karla text-sm font-semibold tracking-[0.08em] text-primary-2">
+          Thank you for watching!
+        </span>
+      </div>
+
+      <h2 className="mb-12 text-center font-family-inter text-4xl font-semibold text-primary-1 md:text-5xl">
         More Case Studies
       </h2>
 
-      {/* Stacked Cards Container */}
-      <div className="relative mb-8 flex justify-center" style={{ maxWidth: '100%' }}>
-        {/* Mobile View - Simple Card */}
-        <div className="block lg:hidden w-full max-w-3xl px-4">
+      <div className="relative mx-auto mb-7 min-h-[390px] w-full max-w-[957px] lg:min-h-[362px]">
+        {backCards.map((card, index) => (
           <div
-            className={`bg-white rounded-2xl p-4 md:p-6 border border-border-2 transition-all duration-500 ${
-              isAnimating ? 'opacity-0 translate-y-8' : 'opacity-100 translate-y-0'
-            }`}
-          >
-            <div className="flex flex-col gap-4">
-              {/* Image */}
-              <div className="w-full h-48 md:h-60">
-                <div className="relative w-full h-full bg-bg-gray rounded-xl overflow-hidden">
-                  {currentStudy?.heroImage ? (
-                    <Image
-                      src={currentStudy.heroImage}
-                      alt={currentStudy.title}
-                      fill
-                      className="object-cover"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-primary-2">
-                      <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                      </svg>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* Content */}
-              <div>
-                <h3 className="text-xl md:text-2xl font-semibold text-primary-1 mb-2 font-family-inter">
-                  {currentStudy?.title}
-                </h3>
-                <p className="text-sm text-primary-1 font-regular leading-relaxed mb-4 font-family-karla line-clamp-3">
-                  {currentStudy?.overview}
-                </p>
-                <Link
-                  href={`/case-study/${currentStudy?.slug}`}
-                  className="inline-block px-4 py-2 bg-box-1 text-white rounded-lg text-sm font-medium hover:bg-primary-1-hover transition-all duration-300 font-family-karla w-fit mb-4"
-                >
-                  View Case study
-                </Link>
-                <div className="w-full border-t border-dashed border-border-2 mb-3"></div>
-                <div className="flex flex-col gap-2">
-                  <h4 className="text-sm font-semibold text-primary-1 font-family-inter">
-                    Leveraged skills
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {currentStudy?.skills.slice(0, 5).map((skill, index) => (
-                      <span
-                        key={index}
-                        className="px-3 py-1.5 bg-white rounded-full text-xs text-primary-1 font-medium font-family-karla border border-border-2 whitespace-nowrap"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Desktop View - Stacked Cards */}
-        <div className="hidden lg:block relative pt-4" style={{ height: '362px', width: '957px' }}>
-          {/* Back Card */}
-          <div
-            className="absolute bg-white rounded-2xl border border-border-2 transition-all duration-500 flex gap-6 p-6"
+            key={`${card.id}-back-${shuffleCount}`}
+            className="absolute hidden rounded-2xl border border-border-2 bg-white shadow-[0_18px_45px_rgba(33,40,51,0.06)] transition-all duration-500 lg:block"
             style={{
-              width: '937px',
-              height: '342px',
-              left: '50%',
-              top: '0px',
-              transform: 'translateX(-50%) scale(0.98)',
-              zIndex: 1,
-              opacity: 0.7
+              inset: '0 auto auto 50%',
+              height: 342,
+              width: 937,
+              transform: `translateX(-50%) translateY(${index * -16}px) scale(${0.98 - index * 0.02})`,
+              opacity: 0.55 - index * 0.12,
+              zIndex: 1 - index,
             }}
-          >
-            <div style={{ width: '410px', height: '291px', flexShrink: 0 }}>
-              <div className="relative w-full h-full bg-bg-gray rounded-xl overflow-hidden">
-                {nextStudy?.heroImage && (
-                  <Image
-                    src={nextStudy.heroImage}
-                    alt={nextStudy.title}
-                    fill
-                    className="object-cover"
-                  />
-                )}
-              </div>
-            </div>
-            <div className="flex-1">
-              <h3 className="text-2xl md:text-3xl font-semibold text-primary-1 mb-3 font-family-inter">
-                {nextStudy?.title}
+          />
+        ))}
+
+        <article
+          key={`${frontCard.id}-${shuffleCount}`}
+          className={`relative z-10 flex flex-col gap-6 rounded-2xl border border-border-2 bg-white p-4 shadow-[0_20px_52px_rgba(33,40,51,0.08)] transition-all duration-500 md:p-6 lg:h-[342px] lg:flex-row ${
+            isShuffling ? 'translate-y-6 scale-[0.98] opacity-0' : 'translate-y-0 scale-100 opacity-100'
+          }`}
+        >
+          <div className="h-56 w-full shrink-0 lg:h-[291px] lg:w-[410px]">
+            <CardImage card={frontCard} />
+          </div>
+
+          <div className="flex flex-1 flex-col justify-between">
+            <div>
+              <h3 className="mb-3 font-family-inter text-2xl font-semibold leading-tight text-primary-1 md:text-3xl">
+                {frontCard.title}
               </h3>
-            </div>
-          </div>
-
-          {/* Front Card */}
-          <div
-            className={`absolute bg-white rounded-2xl p-6 border border-border-2 transition-all duration-500 flex gap-6 ${
-              isAnimating ? 'opacity-0 translate-y-8' : 'opacity-100 translate-y-0'
-            }`}
-            style={{
-              zIndex: 2,
-              height: '342px',
-              width: '957px',
-              top: '20px',
-              left: '50%',
-              transform: isAnimating ? 'translateX(-50%) translateY(2rem)' : 'translateX(-50%) translateY(0)'
-            }}
-          >
-            <div style={{ width: '410px', height: '291px', flexShrink: 0 }}>
-              <div className="relative w-full h-full bg-bg-gray rounded-xl overflow-hidden">
-                {currentStudy?.heroImage ? (
-                  <Image
-                    src={currentStudy.heroImage}
-                    alt={currentStudy.title}
-                    fill
-                    className="object-cover"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center text-primary-2">
-                    <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                  </div>
-                )}
-              </div>
+              <p className="mb-5 font-family-karla text-sm leading-relaxed text-primary-1">
+                {frontCard.description}
+              </p>
+              <Link
+                href={frontCard.href}
+                className="inline-flex rounded-lg bg-box-1 px-5 py-2.5 font-family-karla text-sm font-medium text-white transition-colors duration-300 hover:bg-primary-1-hover"
+              >
+                View Case study
+              </Link>
             </div>
 
-            <div className="flex flex-col flex-1 justify-between">
-              <div>
-                <h3 className="text-2xl md:text-3xl font-semibold text-primary-1 mb-3 font-family-inter">
-                  {currentStudy?.title}
-                </h3>
-                <p className="text-sm text-primary-1 font-regular leading-relaxed mb-4 font-family-karla">
-                  {currentStudy?.overview}
-                </p>
-                <Link
-                  href={`/case-study/${currentStudy?.slug}`}
-                  className="inline-block px-5 py-2.5 bg-box-1 text-white rounded-lg text-sm font-medium hover:bg-primary-1-hover transition-all duration-300 font-family-karla w-fit"
-                >
-                  View Case study
-                </Link>
-              </div>
-              <div>
-                <div className="w-full border-t border-dashed border-border-2 mb-4"></div>
-                <div className="flex items-start gap-3">
-                  <h4 className="text-base font-semibold text-primary-1 font-family-inter whitespace-nowrap flex-shrink-0">
-                    Leveraged skills
-                  </h4>
-                  <div className="flex flex-wrap gap-2 flex-1">
-                    {currentStudy?.skills.slice(0, 5).map((skill, index) => (
-                      <span
-                        key={index}
-                        className="px-3 py-1.5 bg-white rounded-full text-xs text-primary-1 font-medium font-family-karla border border-border-2 whitespace-nowrap"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+            <div className="mt-6">
+              <div className="mb-4 border-t border-dashed border-border-2" />
+              <div className="flex flex-col gap-3 md:flex-row md:items-start">
+                <h4 className="shrink-0 font-family-inter text-base font-semibold text-primary-1">
+                  Leveraged skills
+                </h4>
+                <Skills tags={frontCard.tags} />
               </div>
             </div>
           </div>
-        </div>
+        </article>
       </div>
 
-      {/* Shuffle Button */}
       <div className="flex justify-center">
         <button
-          onClick={shuffleCaseStudies}
-          className="px-6 py-3 bg-box-1 text-white rounded-lg text-sm font-medium hover:bg-primary-1-hover transition-all duration-300 font-family-karla"
+          type="button"
+          onClick={handleShuffle}
+          disabled={isShuffling || cards.length < 2}
+          className="rounded-lg bg-box-1 px-6 py-3 font-family-karla text-sm font-medium text-white transition-all duration-300 hover:bg-primary-1-hover disabled:cursor-not-allowed disabled:opacity-50"
         >
           Shuffle
         </button>
       </div>
-    </div>
+    </section>
   );
 }

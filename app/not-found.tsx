@@ -63,7 +63,7 @@ export default function NotFound() {
 
           {/* Description */}
           <p className="text-base md:text-2xl text-primary-1 font-regular leading-relaxed font-family-karla mb-12 max-w-xl mx-auto">
-            Oops! The page you're looking for doesn't exist. It might have been moved or deleted.
+            Oops! The page you&apos;re looking for doesn&apos;t exist. It might have been moved or deleted.
           </p>
 
           {/* Back to Home Button */}

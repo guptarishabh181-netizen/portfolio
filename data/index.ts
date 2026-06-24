@@ -285,7 +285,7 @@ export const projects: Project[] = [
     tags: ['AI Integration', 'Product Strategy'],
     image: 'https://res.cloudinary.com/dl7f9mnrd/image/upload/v1776006157/Waysorted_cover_nagwvm.jpg',
     tools: ['notion', 'claude', 'miro', 'figma', 'chatgpt', 'protopie'],
-    caseStudySlug: ''
+    caseStudySlug: 'comment-summarizer'
   },
   {
     id: '2',

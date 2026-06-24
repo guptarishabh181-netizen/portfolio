@@ -1,9 +1,15 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function CaseStudyHeader() {
+interface CaseStudyHeaderProps {
+  wide?: boolean;
+}
+
+export default function CaseStudyHeader({ wide = false }: CaseStudyHeaderProps) {
+  const horizontalPadding = wide ? 'px-4 md:px-14 lg:px-20' : 'px-4 md:px-14 lg:px-12';
+
   return (
-    <header className="w-full px-4 md:px-14 lg:px-12 py-6 md:pt-16 flex items-center justify-between">
+    <header className={`w-full ${horizontalPadding} py-6 md:pt-16 flex items-center justify-between`}>
       {/* Logo with Profile + RG - Stacked/Overlapping */}
       <Link href="/" className="relative flex items-center">
         <div className="relative flex items-center">
