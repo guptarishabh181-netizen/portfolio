@@ -34,6 +34,8 @@ export default async function CaseStudyPage({
     return <div>Case study not found</div>;
   }
 
+
+
   // Get next and previous case study slugs
   const slugs = Object.keys(caseStudies);
   const currentIndex = slugs.indexOf(slug);

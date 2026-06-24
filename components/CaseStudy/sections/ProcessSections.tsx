@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { ProcessSection } from '@/types/index';
 
 interface ProcessSectionsProps {
@@ -35,12 +36,14 @@ export default function ProcessSections({ sections, caseStudyTextColor }: Proces
 
           {/* Section Image - Center Aligned with max-w-3xl */}
           {section.image !== undefined && (
-            <div className="max-w-3xl mx-auto relative w-full aspect-[16/9] bg-bg-gray rounded-xl overflow-hidden flex items-center justify-center mb-8">
+            <div className={`max-w-3xl mx-auto relative w-full aspect-[16/9] ${section.image?.endsWith('.svg') ? 'bg-[#f6f7ff]' : 'bg-bg-gray'} rounded-xl overflow-hidden flex items-center justify-center mb-8`}>
               {section.image ? (
-                <img
+                <Image
                   src={section.image}
                   alt={section.title}
-                  className="w-full h-full object-cover"
+                  fill
+                  className={section.image.endsWith('.svg') ? 'object-contain' : 'object-cover'}
+                  sizes="(max-width: 768px) 100vw, 763px"
                 />
               ) : (
                 <div className="text-primary-2">
@@ -57,12 +60,14 @@ export default function ProcessSections({ sections, caseStudyTextColor }: Proces
             <div className="max-w-3xl mx-auto space-y-6 md:space-y-8">
               {section.fontSections.map((fontSection, fontIndex) => (
                 <div key={fontIndex}>
-                  <div className="relative w-full aspect-[16/9] bg-bg-gray rounded-xl overflow-hidden flex items-center justify-center mb-3 md:mb-4">
+                  <div className={`relative w-full aspect-[16/9] ${fontSection.image.endsWith('.svg') ? 'bg-[#f6f7ff]' : 'bg-bg-gray'} rounded-xl overflow-hidden flex items-center justify-center mb-3 md:mb-4`}>
                     {fontSection.image ? (
-                      <img
+                      <Image
                         src={fontSection.image}
                         alt={fontSection.label}
-                        className="w-full h-full object-cover"
+                        fill
+                        className={fontSection.image.endsWith('.svg') ? 'object-contain' : 'object-cover'}
+                        sizes="(max-width: 768px) 100vw, 763px"
                       />
                     ) : (
                       <div className="text-primary-2">
@@ -89,13 +94,15 @@ export default function ProcessSections({ sections, caseStudyTextColor }: Proces
               {section.designSystemImages.map((image, imgIndex) => (
                 <div
                   key={imgIndex}
-                  className="relative w-full max-w-[763px] aspect-[763/818] mx-auto bg-bg-gray rounded-xl overflow-hidden flex items-center justify-center"
+                  className={`relative w-full max-w-[763px] aspect-[763/818] mx-auto ${image.endsWith('.svg') ? 'bg-[#f6f7ff]' : 'bg-bg-gray'} rounded-xl overflow-hidden flex items-center justify-center`}
                 >
                   {image ? (
-                    <img
+                    <Image
                       src={image}
                       alt={`Design System ${imgIndex + 1}`}
-                      className="w-full h-full object-cover"
+                      fill
+                      className={image.endsWith('.svg') ? 'object-contain' : 'object-cover'}
+                      sizes="(max-width: 768px) 100vw, 763px"
                     />
                   ) : (
                     <div className="text-primary-2">
