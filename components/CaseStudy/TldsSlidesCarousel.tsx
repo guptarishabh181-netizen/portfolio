@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { useState } from 'react';
 
 const slides = [
   { id: 'tlds-slide-1', src: '/case-studies/comment-summarizer/tlds-slides/page-1.png', alt: 'TLDS slide 1' },
@@ -13,39 +14,46 @@ const slides = [
 
 function NavLabel({
   children,
-  htmlFor,
+  onClick,
   dark = false,
+  disabled = false,
 }: {
   children: string;
-  htmlFor?: string;
+  onClick?: () => void;
   dark?: boolean;
+  disabled?: boolean;
 }) {
   const classes = dark
     ? 'rounded-lg bg-[#212833] px-5 py-2 font-family-karla text-sm font-semibold text-white'
     : 'rounded-lg border border-[#E2E3E4] bg-white px-4 py-2 font-family-karla text-sm font-semibold text-[#344054]';
 
-  if (!htmlFor) {
-    return <span className={`${classes} cursor-not-allowed opacity-50`}>{children}</span>;
-  }
-
   return (
-    <label htmlFor={htmlFor} className={`${classes} cursor-pointer`}>
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+      className={`${classes} transition disabled:cursor-not-allowed disabled:opacity-50`}
+    >
       {children}
-    </label>
+    </button>
   );
 }
 
 export default function TldsSlidesCarousel() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const currentSlide = activeIndex + 1;
+  const previousSlide = () => setActiveIndex((index) => Math.max(index - 1, 0));
+  const nextSlide = () => setActiveIndex((index) => Math.min(index + 1, slides.length - 1));
+
   return (
     <div>
-      {slides.map((slide, index) => (
-        <input key={slide.id} id={slide.id} name="tlds-slide" type="radio" className="sr-only" defaultChecked={index === 0} />
-      ))}
-
       <div className="tlds-carousel relative aspect-[3261/1974] overflow-hidden rounded-2xl bg-[#F7F7F8]">
-        <div className="tlds-track flex h-full" style={{ width: `${slides.length * 100}%` }}>
+        <div
+          className="flex h-full transition-transform duration-500 ease-out"
+          style={{ transform: `translateX(-${activeIndex * 100}%)` }}
+        >
           {slides.map((slide, index) => (
-            <div key={slide.src} className="relative h-full shrink-0" style={{ width: `${100 / slides.length}%` }}>
+            <div key={slide.src} className="relative h-full min-w-full">
               <Image
                 src={slide.src}
                 alt={slide.alt}
@@ -60,97 +68,33 @@ export default function TldsSlidesCarousel() {
         </div>
       </div>
 
-      {slides.map((slide, index) => {
-        const previous = slides[index - 1]?.id;
-        const next = slides[index + 1]?.id;
+      <div className="mt-6 flex items-center justify-center gap-2">
+        <NavLabel onClick={previousSlide} disabled={activeIndex === 0}>
+          Previous
+        </NavLabel>
+        <NavLabel onClick={nextSlide} dark disabled={activeIndex === slides.length - 1}>
+          Next
+        </NavLabel>
+      </div>
 
-        return (
-          <div key={`${slide.id}-controls`} className={`tlds-controls tlds-controls--${index + 1} mt-6 hidden items-center justify-center gap-2`}>
-            <NavLabel htmlFor={previous}>Previous</NavLabel>
-            <NavLabel htmlFor={next} dark>
-              Next
-            </NavLabel>
-          </div>
-        );
-      })}
+      <p className="mt-3 text-center font-family-karla text-sm font-semibold text-[#5B6573]">
+        {currentSlide} / {slides.length}
+      </p>
 
-      {slides.map((slide, index) => (
-        <p
-          key={`${slide.id}-counter`}
-          className={`tlds-counter tlds-counter--${index + 1} mt-3 hidden text-center font-family-karla text-sm font-semibold text-[#5B6573]`}
-        >
-          {index + 1} / {slides.length}
-        </p>
-      ))}
-
-      {slides.map((slide, currentIndex) => (
-        <div key={`${slide.id}-dots`} className={`tlds-dots tlds-dots--${currentIndex + 1} mt-4 hidden justify-center gap-2`}>
-          {slides.map((dotSlide, dotIndex) => (
-            <label
-              key={dotSlide.id}
-              htmlFor={dotSlide.id}
-              aria-label={`Go to slide ${dotIndex + 1}`}
-              className={`h-2.5 w-2.5 cursor-pointer rounded-full transition ${
-                dotIndex === currentIndex ? 'bg-[#212833]' : 'bg-[#CFD5DE]'
-              }`}
-            />
-          ))}
-        </div>
-      ))}
-
-      <style>{`
-        .tlds-track {
-          transition: transform 300ms ease-out;
-        }
-
-        #tlds-slide-1:checked ~ .tlds-carousel .tlds-track {
-          transform: translateX(0%);
-        }
-
-        #tlds-slide-2:checked ~ .tlds-carousel .tlds-track {
-          transform: translateX(-16.666667%);
-        }
-
-        #tlds-slide-3:checked ~ .tlds-carousel .tlds-track {
-          transform: translateX(-33.333334%);
-        }
-
-        #tlds-slide-4:checked ~ .tlds-carousel .tlds-track {
-          transform: translateX(-50%);
-        }
-
-        #tlds-slide-5:checked ~ .tlds-carousel .tlds-track {
-          transform: translateX(-66.666667%);
-        }
-
-        #tlds-slide-6:checked ~ .tlds-carousel .tlds-track {
-          transform: translateX(-83.333334%);
-        }
-
-        #tlds-slide-1:checked ~ .tlds-controls--1,
-        #tlds-slide-2:checked ~ .tlds-controls--2,
-        #tlds-slide-3:checked ~ .tlds-controls--3,
-        #tlds-slide-4:checked ~ .tlds-controls--4,
-        #tlds-slide-5:checked ~ .tlds-controls--5,
-        #tlds-slide-6:checked ~ .tlds-controls--6,
-        #tlds-slide-1:checked ~ .tlds-dots--1,
-        #tlds-slide-2:checked ~ .tlds-dots--2,
-        #tlds-slide-3:checked ~ .tlds-dots--3,
-        #tlds-slide-4:checked ~ .tlds-dots--4,
-        #tlds-slide-5:checked ~ .tlds-dots--5,
-        #tlds-slide-6:checked ~ .tlds-dots--6 {
-          display: flex;
-        }
-
-        #tlds-slide-1:checked ~ .tlds-counter--1,
-        #tlds-slide-2:checked ~ .tlds-counter--2,
-        #tlds-slide-3:checked ~ .tlds-counter--3,
-        #tlds-slide-4:checked ~ .tlds-counter--4,
-        #tlds-slide-5:checked ~ .tlds-counter--5,
-        #tlds-slide-6:checked ~ .tlds-counter--6 {
-          display: block;
-        }
-      `}</style>
+      <div className="mt-4 flex justify-center gap-2">
+        {slides.map((slide, dotIndex) => (
+          <button
+            key={slide.id}
+            type="button"
+            aria-label={`Go to slide ${dotIndex + 1}`}
+            aria-pressed={dotIndex === activeIndex}
+            onClick={() => setActiveIndex(dotIndex)}
+            className={`h-2.5 w-2.5 rounded-full transition ${
+              dotIndex === activeIndex ? 'bg-[#212833]' : 'bg-[#CFD5DE]'
+            }`}
+          />
+        ))}
+      </div>
     </div>
   );
 }

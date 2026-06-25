@@ -128,6 +128,10 @@ export default function Work() {
             <div className="space-y-12 md:space-y-16">
               {projects.map((project) => {
                 const projectYearData = years.find(y => y.year === (project.year <= 2022 ? 2022 : project.year));
+                const projectHref = project.caseStudySlug && project.caseStudySlug.trim() !== ''
+                  ? `/case-study/${project.caseStudySlug}`
+                  : project.websiteLink || '/case-study/coming-soon';
+                const isExternalProject = !project.caseStudySlug && Boolean(project.websiteLink);
 
                 return (
                   <article
@@ -204,18 +208,12 @@ export default function Work() {
                           </p>
                         </div>
                         <Link
-                          href={
-                            project.websiteLink
-                              ? project.websiteLink
-                              : (project.caseStudySlug && project.caseStudySlug.trim() !== '')
-                                ? `/case-study/${project.caseStudySlug}`
-                                : '/case-study/coming-soon'
-                          }
-                          target={project.websiteLink ? "_blank" : "_self"}
-                          rel={project.websiteLink ? "noopener noreferrer" : ""}
+                          href={projectHref}
+                          target={isExternalProject ? "_blank" : "_self"}
+                          rel={isExternalProject ? "noopener noreferrer" : ""}
                           className="hidden md:block px-5 py-2.5 bg-box-1 text-white rounded-lg text-sm font-medium hover:bg-primary-1-hover transition-all duration-300 font-family-karla whitespace-nowrap"
                         >
-                          {project.websiteLink ? "View Website" : "View Case Study"}
+                          {project.caseStudySlug ? "View Case Study" : project.websiteLink ? "View Website" : "View Case Study"}
                         </Link>
                       </div>
                     </div>
@@ -253,19 +251,13 @@ export default function Work() {
                     {/* Button - Mobile only */}
                     <div className="md:hidden mt-4">
                       <Link
-                        href={
-                          project.websiteLink
-                            ? project.websiteLink
-                            : (project.caseStudySlug && project.caseStudySlug.trim() !== '')
-                              ? `/case-study/${project.caseStudySlug}`
-                              : '/case-study/coming-soon'
-                        }
+                        href={projectHref}
                         // Open in new tab only if it's an external website link
-                        target={project.websiteLink ? "_blank" : "_self"}
-                        rel={project.websiteLink ? "noopener noreferrer" : ""}
+                        target={isExternalProject ? "_blank" : "_self"}
+                        rel={isExternalProject ? "noopener noreferrer" : ""}
                         className="block px-5 py-2.5 bg-box-1 text-white rounded-lg text-sm font-medium hover:bg-primary-1-hover transition-all duration-300 font-family-karla text-center"
                       >
-                        {project.websiteLink ? 'View Website' : 'View Case Study'}
+                        {project.caseStudySlug ? 'View Case Study' : project.websiteLink ? 'View Website' : 'View Case Study'}
                       </Link>
                     </div>
                   </article>

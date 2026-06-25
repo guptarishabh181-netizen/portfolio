@@ -364,10 +364,10 @@ function Tlds() {
       {/* Desktop: full image */}
       <div className="hidden overflow-hidden rounded-2xl md:block">
         <VisualAsset
-          src="/case-studies/comment-summarizer/assets/final/process-img.png"
+          src="/case-studies/comment-summarizer/assets/double-diamond.png"
           alt="Design process overview"
-          width={1124}
-          height={280}
+          width={2335}
+          height={1758}
         />
       </div>
 
@@ -375,10 +375,10 @@ function Tlds() {
       <div className="overflow-x-auto overflow-y-hidden rounded-2xl bg-[#F7F7F8] p-4 md:hidden" style={{ maxHeight: '50vh' }}>
         <div className="min-w-max">
           <Image
-            src="/case-studies/comment-summarizer/assets/final/process-img.png"
+            src="/case-studies/comment-summarizer/assets/double-diamond.png"
             alt="Design process overview"
-            width={1124}
-            height={280}
+            width={2335}
+            height={1758}
             loading="eager"
             unoptimized
             className="h-auto"
@@ -660,11 +660,7 @@ function ComponentsAndClose() {
         </div>
       </div>
 
-      <div className="mt-20 text-center">
-        <span className="inline-flex rounded-full border border-[#BFC7D3] px-8 py-4 font-family-inter text-lg font-bold text-[#8C96A6]">
-          Thank you for watching!
-        </span>
-      </div>
+
 
       <MoreCaseStudies currentSlug="comment-summarizer" />
     </SectionShell>

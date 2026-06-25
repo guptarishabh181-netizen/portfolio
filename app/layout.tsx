@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Karla, Inter } from "next/font/google";
+import { Karla, Inter, DM_Sans, Karantina, Arimo } from "next/font/google";
 import "./globals.css";
 
 const karla = Karla({
@@ -12,6 +12,24 @@ const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
+});
+
+const dmSans = DM_Sans({
+  variable: "--font-dm-sans",
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+});
+
+const karantina = Karantina({
+  variable: "--font-karantina",
+  subsets: ["latin"],
+  weight: ["300", "400", "700"],
+});
+
+const arimo = Arimo({
+  variable: "--font-arimo",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -27,7 +45,8 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${karla.variable} ${inter.variable} h-full antialiased`}
+      data-scroll-behavior="smooth"
+      className={`${karla.variable} ${inter.variable} ${dmSans.variable} ${karantina.variable} ${arimo.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col cursor-default">{children}</body>
     </html>
