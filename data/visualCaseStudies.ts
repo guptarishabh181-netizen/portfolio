@@ -273,7 +273,7 @@ export const visualCaseStudies: Record<string, VisualCaseStudy> = {
     category: 'Web Design',
     accentColor: '#B90D13',
     titleFontClass: 'font-family-arimo',
-    headlineFontClass: 'font-family-karantina tracking-wide uppercase',
+    headlineFontClass: 'font-family-arimo',
     bodyFontClass: 'font-family-arimo',
     titleVariant: 'large',
     title: 'Redesigning an Online Calisthenics Platform for Higher Conversions',
@@ -496,7 +496,7 @@ export const visualCaseStudies: Record<string, VisualCaseStudy> = {
   },
   'medwiki-ai-health-assistant': {
     slug: 'medwiki-ai-health-assistant',
-    category: 'Mobile Application',
+    category: 'Webpage design',
     accentColor: '#E95F0F',
     titleFontClass: 'font-family-karla',
     headlineFontClass: 'font-family-inter',
