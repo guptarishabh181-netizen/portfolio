@@ -235,7 +235,7 @@ export default function VisualCaseStudyPage({ study }: VisualCaseStudyPageProps)
                 headlineFont={headlineFont}
               />
             </div>
-            <div>
+            <div className="lg:mt-60">
               <HighlightBlock
                 label={study.userProblem.title}
                 headline={study.userProblem.headline}
