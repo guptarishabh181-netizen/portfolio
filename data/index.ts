@@ -295,7 +295,7 @@ export const projects: Project[] = [
     tags: ['AI', 'B2B Website'],
     image: 'https://res.cloudinary.com/dl7f9mnrd/image/upload/v1776012617/Adaapt_cover_mfwzif.png',
     tools: ['notion', 'claude', 'miro', 'uizard', 'ai', 'chatgpt', 'figma', 'protopie'],
-    caseStudySlug: ''
+    caseStudySlug: 'adaapt-ai-workforce-analytics'
   },
   {
     id: '3',
@@ -305,7 +305,7 @@ export const projects: Project[] = [
     tags: ['Conversational AI', 'Product Strategy'],
     image: 'https://res.cloudinary.com/dl7f9mnrd/image/upload/v1776012612/Medwiki_Ai_cover_usc5zm.png',
     tools: ['notion', 'claude', 'miro', 'uizard', 'protopie', 'chatgpt', 'figma'],
-    caseStudySlug: ''
+    caseStudySlug: 'medwiki-ai-health-assistant'
   },
   {
     id: '4',
@@ -346,7 +346,7 @@ export const projects: Project[] = [
     tags: ['Web Design', 'Conversion Optimization'],
     image: 'https://res.cloudinary.com/dl7f9mnrd/image/upload/v1776012613/HOC_Cover_zxpmzh.png',
     tools: ['notion', 'ai', 'psd', 'chatgpt', 'figma'],
-    caseStudySlug: ''
+    caseStudySlug: 'house-of-calisthenics'
   },
   {
     id: '8',
