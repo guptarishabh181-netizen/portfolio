@@ -25,7 +25,7 @@ export default function Header() {
         {/* Resume Button */}
         <button
           onClick={() =>
-            window.open("https://drive.google.com/file/d/1OZX2AwzJm1DzRU0kVWE0atmavNTI1-M9/view?usp=sharing", "_blank")
+            window.open("https://drive.google.com/file/d/1VBK40c6rnjoNif0w2g0Sme7F8OyCR7QH/view?usp=sharing", "_blank")
           }
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
